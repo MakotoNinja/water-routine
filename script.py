@@ -19,15 +19,16 @@ def qualify_int(package, name):
 	else:
 		return data
 
-def qualify_sequence(seq_name):
-	if len(''.join(seq_name.split())) > 0 and seq_name.lower() != 'none':
+def qualify_sequence(input_name):
+	seq_name = get_config_value(PKG, input_name, str)
+	if ''.join(seq_name.split()).lower() == 'none':
+		input_errors.append('Encountered "None" for required sequence {}" '.format(input_name))
+	elif len(''.join(seq_name.split())) > 0:
 		try:
 			sequence_id = app.find_sequence_by_name(name = seq_name)
 			return sequence_id
 		except:
 			input_errors.append('Failed to find sequence ID for {}'.format(seq_name))
-	elif seq_name.lower() == 'none':
-		input_errors.append('Encountered "None for required sequence {}" '.format(seq_name))
 	return None
 
 def take_readings():
@@ -57,16 +58,17 @@ Z_TRANSLATE = qualify_int(PKG, 'z_translate')
 THRESHOLD = qualify_int(PKG, 'threshold')
 NUM_READ = qualify_int(PKG, 'num_read')
 
-moisture_tool_retrieve_sequence_id = qualify_sequence(get_config_value(PKG, 'tool_moisture_retrieve', str))
-moisture_tool_return_sequence_id = qualify_sequence(get_config_value(PKG, 'tool_moisture_return', str))
-water_tool_retrieve_sequence_id = qualify_sequence(get_config_value(PKG, 'tool_water_retrieve', str))
-water_tool_return_sequence_id = qualify_sequence(get_config_value(PKG, 'tool_water_return', str))
+moisture_tool_retrieve_sequence_id = qualify_sequence('tool_moisture_retrieve')
+moisture_tool_return_sequence_id = qualify_sequence('tool_moisture_return')
+water_tool_retrieve_sequence_id = qualify_sequence('tool_water_retrieve')
+water_tool_return_sequence_id = qualify_sequence('tool_water_return')
 # TODO qualify each comma separated sequence
 water_sequences = qualify_sequence(get_config_value(PKG, 'water_sequences', str))
 
 if len(input_errors):
 	for err in input_errors:
-		device.log(err, 'error', ['toast'])
+		device.log(err, 'error')
+	device.log('fatal errors occured, farmware exiting.', 'info')
 	sys.exit()
 
 device.write_pin(PIN_LIGHTS, 1, 0)
