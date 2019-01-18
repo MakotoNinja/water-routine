@@ -1,9 +1,7 @@
-<h1>Weeder Routine</h1
-<p>A weeder routine for Farmbot.</p>
-<p>The weeder routine should:</p>
+<h1>Water Routine</h1
+<p>A water routine for Farmbot.</p>
+<p>The water routine should:</p>
 <ul>
-	<li>Delete all point data.</li>
-	<li>Scan the area specified by the input parameters for weeds.</li>
-	<li>Optional watering of detected weeds (helps loosen up soil).</li>
-	<li>Stomp out any detected weeds.</li>
+	<li>Pick up the moisture sensor and choose random uninhabited points near known plants and take readings.</li>
+	<li>Pick up the water tool and run through the specified sequences if the reading is below the specified threshold.</li>
 </ul>
