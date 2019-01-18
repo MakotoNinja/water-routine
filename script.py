@@ -58,8 +58,8 @@ readings = []
 device.write_pin(PIN_LIGHTS, 1, 0)
 plants = app.get_plants()
 
-rand_plant = plants[randint(0, len(plants))]
-device.log(rand_plant)
+rand_plant = plants[randint(0, len(plants) - 1)]
+device.log(json.dumps(rand_plant))
 
 device.home('all')
 device.write_pin(PIN_LIGHTS, 0, 0)
