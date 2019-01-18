@@ -29,14 +29,21 @@ def qualify_sequence(seq_name):
 	return None
 
 def take_readings():
+	readings = []
+	plants_chosen = []
 	if device.get_current_position('x') > 10 or device.get_current_position('y') > 10 or device.get_current_position('z') > 0:
 		device.home('all')
 	device.execute(moisture_tool_retrieve_sequence_id)
 	coord = Coordinate(device.get_current_position('x'), device.get_current_position('y'), Z_TRANSLATE)
 	device.move_absolute(coord.get(), 100, coord.get_offset())
 	for i in range(NUM_READ):
-		rand_plant = plants[randint(0, len(plants) - 1)]
+		rand_plant_num = randint(0, len(plants) - 1)
+		while rand_plant_num in plants_chosen:
+			rand_plant_num = randint(0, len(plants) - 1)
+		plants_chosen.append(rand_plant_num)
+		rand_plant = plants[rand_plant_num]
 		device.log(json.dumps(rand_plant))
+		# TODO random plant chosen, now offset coordinates and take moisture measurement
 
 PIN_LIGHTS = 7
 PIN_WATER = 8
@@ -57,13 +64,10 @@ if len(input_errors):
 		device.log(err, 'error', ['toast'])
 	sys.exit()
 
-readings = []
-
 device.write_pin(PIN_LIGHTS, 1, 0)
 plants = app.get_plants()
 
-rand_plant = plants[randint(0, len(plants) - 1)]
-device.log(json.dumps(rand_plant))
+take_readings()
 
 device.home('all')
 device.write_pin(PIN_LIGHTS, 0, 0)
