@@ -14,7 +14,7 @@
 		{"name": "tool_moisture_return", "label": "Moisture Sensor Tool Return Sequence", "value": "None" },
 		{"name": "z_translate", "label": "Z axis height while traveling from point to point", "value": 0 },
 		{"name": "threshold", "label": "Moisture Threshold (0 ~ 1023)", "value": 512 },
-		{"name": "num_read", "label": "Number of readings to take", "value": 3 }
+		{"name": "num_read", "label": "Number of readings to take", "value": 3 },
 		{"name": "tool_water_retrieve", "label": "Water Tool Retrieval Sequence", "value": "None" },
 		{"name": "tool_water_return", "label": "Water Tool Return Sequence", "value": "None" },
 		{"name": "water_sequences", "label": "Watering sequences (comma separated)", "value": "None" }
