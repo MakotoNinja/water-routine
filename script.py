@@ -38,6 +38,8 @@ PIN_LIGHTS = 7
 PIN_WATER = 8
 PKG = 'Water Routine'
 Z_TRANSLATE = qualify_int(PKG, 'z_translate')
+THRESHOLD = qualify_int(PKG, 'threshold')
+NUM_READ = qualify_int(PKG, 'num_read')
 
 weeder_tool_retrieve_sequence_id = qualify_sequence(get_config_value(PKG, 'tool_moisture_retrieve', str))
 weeder_tool_return_sequence_id = qualify_sequence(get_config_value(PKG, 'tool_moisture_return', str))
