@@ -3,20 +3,20 @@
 	"language": "python",
 	"author": "MakotoNinja",
 	"description": "A moisture sensing and watering routine for Farmbot.",
-	"version": "1.0.1",
+	"version": "1.0.2",
 	"min_os_version_major": 6,
 	"url": "https://raw.githubusercontent.com/MakotoNinja/water-routine/master/manifest.json",
 	"zip": "https://github.com/MakotoNinja/water-routine/archive/master.zip",
 	"executable": "python",
 	"args": ["water-routine-master/script.py"],
 	"config": [
-		{"name": "z_translate", "label": "Z axis height while traveling from point to point", "value": 0 },
 		{"name": "tool_moisture_retrieve", "label": "Moisture Sensor Tool Retrieval Sequence", "value": "None" },
 		{"name": "tool_moisture_return", "label": "Moisture Sensor Tool Return Sequence", "value": "None" },
-		{"name": "tool_water_retrieve", "label": "Water Tool Retrieval Sequence", "value": "None" },
-		{"name": "tool_water_return", "label": "Water Tool Return Sequence", "value": "None" },
-		{"name": "water_sequences", "label": "Watering sequences (comma separated)", "value": "None" },
+		{"name": "z_translate", "label": "Z axis height while traveling from point to point", "value": 0 },
 		{"name": "threshold", "label": "Moisture Threshold (0 ~ 1023)", "value": 512 },
 		{"name": "num_read", "label": "Number of readings to take", "value": 3 }
+		{"name": "tool_water_retrieve", "label": "Water Tool Retrieval Sequence", "value": "None" },
+		{"name": "tool_water_return", "label": "Water Tool Return Sequence", "value": "None" },
+		{"name": "water_sequences", "label": "Watering sequences (comma separated)", "value": "None" }
 	]
 }
