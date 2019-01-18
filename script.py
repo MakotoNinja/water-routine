@@ -9,7 +9,7 @@ from random import randint
 from farmware_tools import device, app, get_config_value
 from Coordinate import Coordinate
 
-input_errors = []
+
 def qualify_int(package, name):
 	data = get_config_value(package, name, int)
 	try:
@@ -26,6 +26,8 @@ def qualify_sequence(seq_name):
 			return sequence_id
 		except:
 			input_errors.append('Failed to find sequence ID for {}'.format(seq_name))
+	elif seq_name.lower() == 'none':
+		input_errors.append('Encountered "None for required sequence {}" '.format(seq_name))
 	return None
 
 def take_readings():
@@ -48,6 +50,9 @@ def take_readings():
 PIN_LIGHTS = 7
 PIN_WATER = 8
 PKG = 'Water Routine'
+
+input_errors = []
+
 Z_TRANSLATE = qualify_int(PKG, 'z_translate')
 THRESHOLD = qualify_int(PKG, 'threshold')
 NUM_READ = qualify_int(PKG, 'num_read')
