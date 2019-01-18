@@ -45,6 +45,7 @@ weeder_tool_retrieve_sequence_id = qualify_sequence(get_config_value(PKG, 'tool_
 weeder_tool_return_sequence_id = qualify_sequence(get_config_value(PKG, 'tool_moisture_return', str))
 water_tool_retrieve_sequence_id = qualify_sequence(get_config_value(PKG, 'tool_water_retrieve', str))
 water_tool_return_sequence_id = qualify_sequence(get_config_value(PKG, 'tool_water_return', str))
+water_sequences = qualify_sequence(get_config_value(PKG, 'water_sequences', str))
 
 if len(input_errors):
 	for err in input_errors:
