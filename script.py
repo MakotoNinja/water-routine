@@ -28,12 +28,15 @@ def qualify_sequence(seq_name):
 			input_errors.append('Failed to find sequence ID for {}'.format(seq_name))
 	return None
 
-def del_all_points(points):
-	for point in points:
-		try:
-			app.delete('points', point['id'])
-		except:
-			device.log("App Error - Point ID: {}".format(point['id']), 'error')
+def take_readings():
+	if device.get_current_position('x') > 10 or device.get_current_position('y') > 10 or device.get_current_position('z') > 0:
+		device.home('all')
+	device.execute(moisture_tool_retrieve_sequence_id)
+	coord = Coordinate(device.get_current_position('x'), device.get_current_position('y'), Z_TRANSLATE)
+	device.move_absolute(coord.get(), 100, coord.get_offset())
+	for i in range(NUM_READ):
+		rand_plant = plants[randint(0, len(plants) - 1)]
+		device.log(json.dumps(rand_plant))
 
 PIN_LIGHTS = 7
 PIN_WATER = 8
@@ -42,10 +45,11 @@ Z_TRANSLATE = qualify_int(PKG, 'z_translate')
 THRESHOLD = qualify_int(PKG, 'threshold')
 NUM_READ = qualify_int(PKG, 'num_read')
 
-weeder_tool_retrieve_sequence_id = qualify_sequence(get_config_value(PKG, 'tool_moisture_retrieve', str))
-weeder_tool_return_sequence_id = qualify_sequence(get_config_value(PKG, 'tool_moisture_return', str))
+moisture_tool_retrieve_sequence_id = qualify_sequence(get_config_value(PKG, 'tool_moisture_retrieve', str))
+moisture_tool_return_sequence_id = qualify_sequence(get_config_value(PKG, 'tool_moisture_return', str))
 water_tool_retrieve_sequence_id = qualify_sequence(get_config_value(PKG, 'tool_water_retrieve', str))
 water_tool_return_sequence_id = qualify_sequence(get_config_value(PKG, 'tool_water_return', str))
+# TODO qualify each comma separated sequence
 water_sequences = qualify_sequence(get_config_value(PKG, 'water_sequences', str))
 
 if len(input_errors):
