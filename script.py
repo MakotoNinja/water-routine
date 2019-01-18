@@ -5,6 +5,7 @@
 '''
 
 import os, sys, json
+from random import randint
 from farmware_tools import device, app, get_config_value
 from Coordinate import Coordinate
 
@@ -55,7 +56,10 @@ if len(input_errors):
 readings = []
 
 device.write_pin(PIN_LIGHTS, 1, 0)
-points = app.get_points()
+plants = app.get_plants()
+
+rand_plant = plants[randint(0, len(plants))]
+device.log(rand_plant)
 
 device.home('all')
 device.write_pin(PIN_LIGHTS, 0, 0)
