@@ -1,5 +1,5 @@
 <h1>Water Routine</h1
-<p>A water routine for Farmbot.</p>
+<p>A moisture sensing and watering routine for Farmbot.</p>
 <p>The water routine should:</p>
 <ul>
 	<li>Pick up the moisture sensor and choose random uninhabited points near known plants and take readings.</li>

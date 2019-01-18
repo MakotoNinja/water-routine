@@ -49,6 +49,8 @@ if len(input_errors):
 		device.log(err, 'error', ['toast'])
 	sys.exit()
 
+readings = []
+
 device.write_pin(PIN_LIGHTS, 1, 0)
 points = app.get_points()
 
