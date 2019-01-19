@@ -21,6 +21,7 @@ def qualify_int(package, name):
 
 def qualify_sequence(input_name):
 	seq_name = get_config_value(PKG, input_name, str)
+	device.log('Sequence Name: {}, Input Name: {}'.format(seq_name, input_name))
 	if ''.join(seq_name.split()).lower() == 'none':
 		input_errors.append('Encountered "None" for required sequence {}" '.format(input_name))
 	elif len(''.join(seq_name.split())) > 0:
@@ -34,7 +35,7 @@ def qualify_sequence(input_name):
 def take_readings():
 	readings = []
 	plants_chosen = []
-	if device.get_current_position('x') > 10 or device.get_current_position('y') > 10 or device.get_current_position('z') > 0:
+	if device.get_current_position('x') > 10 or device.get_current_position('y') > 10 or device.get_current_position('z') < -10:
 		device.home('all')
 	device.execute(moisture_tool_retrieve_sequence_id)
 	coord = Coordinate(device.get_current_position('x'), device.get_current_position('y'), Z_TRANSLATE)
