@@ -20,6 +20,7 @@ def qualify_int(package, name):
 		return data
 
 def qualify_sequence(input_name):
+	device.log('Qualifying sequence...')
 	seq_name = get_config_value(PKG, input_name, str)
 	if ''.join(seq_name.split()).lower() == 'none':
 		device.log('Adding error to input_errors')
@@ -28,6 +29,7 @@ def qualify_sequence(input_name):
 	elif len(''.join(seq_name.split())) > 0:
 		device.log('Sequence Name: {} is not "None"')
 		try:
+			device.log('Trying to find_sequence_by_name')
 			sequence_id = app.find_sequence_by_name(name = seq_name)
 			return sequence_id
 		except:
