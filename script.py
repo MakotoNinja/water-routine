@@ -26,6 +26,7 @@ def qualify_sequence(input_name):
 		input_errors.append('Encountered "None" for required sequence {}" '.format(input_name))
 		return False
 	elif len(''.join(seq_name.split())) > 0:
+		device.log('Sequence Name: {} is not "None"')
 		try:
 			sequence_id = app.find_sequence_by_name(name = seq_name)
 			return sequence_id
