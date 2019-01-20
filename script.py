@@ -21,8 +21,6 @@ def qualify_int(package, name):
 
 def qualify_sequence(input_name):
 	seq_name = get_config_value(PKG, input_name, str)
-	device.log('Sequence Name: {}, Input Name: {}'.format(seq_name, input_name))
-	device.log("''.join(seq_name.split()).lower(): {}".format(''.join(seq_name.split()).lower()))
 	if ''.join(seq_name.split()).lower() == 'none':
 		device.log('Adding error to input_errors')
 		input_errors.append('Encountered "None" for required sequence {}" '.format(input_name))
