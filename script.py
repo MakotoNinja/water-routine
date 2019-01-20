@@ -20,16 +20,13 @@ def qualify_int(package, name):
 		return data
 
 def qualify_sequence(input_name):
-	device.log('Qualifying sequence...')
 	seq_name = get_config_value(PKG, input_name, str)
 	if ''.join(seq_name.split()).lower() == 'none':
-		device.log('Adding error to input_errors')
 		input_errors.append('Encountered "None" for required sequence {}" '.format(input_name))
 		return False
 	elif len(''.join(seq_name.split())) > 0:
 		device.log('Sequence Name: {} is not "None"')
 		try:
-			device.log('Trying to find_sequence_by_name')
 			sequence_id = app.find_sequence_by_name(name = seq_name)
 			return sequence_id
 		except:
@@ -68,7 +65,7 @@ moisture_tool_return_sequence_id = qualify_sequence('tool_moisture_return')
 water_tool_retrieve_sequence_id = qualify_sequence('tool_water_retrieve')
 water_tool_return_sequence_id = qualify_sequence('tool_water_return')
 # TODO qualify each comma separated sequence
-water_sequences = qualify_sequence(get_config_value(PKG, 'water_sequences', str))
+#water_sequences = qualify_sequence('water_sequences')
 
 if len(input_errors):
 	for err in input_errors:
