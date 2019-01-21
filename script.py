@@ -25,7 +25,6 @@ def qualify_sequence(input_name):
 		input_errors.append('Encountered "None" for required sequence {}" '.format(input_name))
 		return False
 	elif len(''.join(seq_name.split())) > 0:
-		device.log('Sequence Name: {} is not "None"')
 		try:
 			sequence_id = app.find_sequence_by_name(name = seq_name)
 			return sequence_id
@@ -40,6 +39,7 @@ def take_readings():
 		device.home('all')
 	device.execute(moisture_tool_retrieve_sequence_id)
 	coord = Coordinate(device.get_current_position('x'), device.get_current_position('y'), Z_TRANSLATE)
+	device.log('Coord: {}'.format(coord.get_coordinate()))
 	device.move_absolute(coord.get(), 100, coord.get_offset())
 	for i in range(NUM_READ):
 		rand_plant_num = randint(0, len(plants) - 1)
