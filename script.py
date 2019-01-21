@@ -10,8 +10,8 @@ from farmware_tools import device, app, get_config_value
 from Coordinate import Coordinate
 
 
-def qualify_int(package, name):
-	data = get_config_value(package, name, int)
+def qualify_int(name):
+	data = get_config_value(PKG, name, int)
 	try:
 		data = int(data)
 	except:
@@ -56,21 +56,22 @@ PKG = 'Water Routine'
 
 input_errors = []
 
-Z_TRANSLATE = qualify_int(PKG, 'z_translate')
-THRESHOLD = qualify_int(PKG, 'threshold')
-NUM_READ = qualify_int(PKG, 'num_read')
+SENSOR_Z_DEPTH = qualify_int('sensor_z_depth')
+Z_TRANSLATE = qualify_int('z_translate')
+THRESHOLD = qualify_int('threshold')
+NUM_READ = qualify_int('num_read')
 
 moisture_tool_retrieve_sequence_id = qualify_sequence('tool_moisture_retrieve')
 moisture_tool_return_sequence_id = qualify_sequence('tool_moisture_return')
 water_tool_retrieve_sequence_id = qualify_sequence('tool_water_retrieve')
 water_tool_return_sequence_id = qualify_sequence('tool_water_return')
 # TODO qualify each comma separated sequence
-#water_sequences = qualify_sequence('water_sequences')
+#water_sequence_ids = qualify_sequence('water_sequences')
 
 if len(input_errors):
 	for err in input_errors:
-		device.log(err, 'error')
-	device.log('fatal errors occured, farmware exiting.', 'info')
+		device.log(err, 'warn')
+	device.log('Fatal errors occured, farmware exiting.', 'warn')
 	sys.exit()
 
 device.write_pin(PIN_LIGHTS, 1, 0)
