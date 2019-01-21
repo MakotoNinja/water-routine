@@ -36,8 +36,7 @@ def take_readings():
 	plants_chosen = []
 	device.execute(moisture_tool_retrieve_sequence_id)
 	coord = Coordinate(device.get_current_position('x'), device.get_current_position('y'), Z_TRANSLATE)
-	device.log('Coord: {}'.format(coord.get_coordinate()))
-	device.move_absolute(coord.get_node(), 100, coord.get_offset_node())
+	coord.move_abs()
 	for i in range(NUM_SITES):
 		rand_plant_num = randint(0, len(plants) - 1)
 		while rand_plant_num in plants_chosen:
@@ -48,19 +47,19 @@ def take_readings():
 		# TODO random plant chosen, now offset coordinates and take moisture measurement
 		coord.set_coordinate(rand_plant['x'], rand_plant['y'], Z_TRANSLATE)
 		coord.set_offset(OFFSET_X, OFFSET_Y)
-		device.move_absolute(coord.get_node(), 100, coord.get_offset_node())
+		coord.move_abs()
 		coord.set_axis_position('z', SENSOR_Z_DEPTH)
-		device.move_absolute(coord.get_node(), 100, coord.get_offset_node())
+		coord.move_abs()
 		# take reading(s)
 		for i in range(NUM_SAMPLES):
 			reading = device.get_pin_value(PIN_SENSOR)
-			device.log('Reading: {}'.format(reading))
+			device.log('Getting: {}'.format(reading))
+			device.read_pin(PIN_SENSOR, 'Sensor', 1)
 			moisture_readings.append(reading)
 			device.wait(500)
 
 		coord.set_axis_position('z', Z_TRANSLATE)
 		coord.move_abs()
-		#device.move_absolute(coord.get_node(), 100, coord.get_offset_node())
 	#device.log('Readings Comkplete!', 'success')
 	device.log('Readings: {}'.format(json.dumps(moisture_readings)), 'success')
 	device.execute(moisture_tool_return_sequence_id)
