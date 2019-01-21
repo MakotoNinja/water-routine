@@ -56,6 +56,7 @@ def take_readings():
 		readings.append(device.get_pin_value(PIN_SENSOR))
 		coord.set_axis_position('z', Z_TRANSLATE)
 		device.move_absolute(coord.get_node(), 100, coord.get_offset_node())
+	device.log('Readings complete!')
 	device.log('Readings: {}'.format(json_dumps(readings)))
 	device.execute(moisture_tool_return_sequence_id)
 
