@@ -44,7 +44,6 @@ def take_readings():
 		plants_chosen.append(rand_plant_num)
 		rand_plant = plants[rand_plant_num]
 		device.log(json.dumps(rand_plant))
-		# TODO random plant chosen, now offset coordinates and take moisture measurement
 		coord.set_coordinate(rand_plant['x'], rand_plant['y'], Z_TRANSLATE)
 		coord.set_offset(OFFSET_X, OFFSET_Y)
 		coord.move_abs()
@@ -71,7 +70,7 @@ def response():
 	average /= len(moisture_readings)
 	if average < THRESHOLD:
 		device.execute(water_tool_retrieve_sequence_id)
-		# TODO execute water sequences
+		device.execute(water_sequence_id)
 		device.execute(water_tool_return_sequence_id)
 
 PIN_LIGHTS = 7
@@ -93,8 +92,8 @@ moisture_tool_retrieve_sequence_id = qualify_sequence('tool_moisture_retrieve')
 moisture_tool_return_sequence_id = qualify_sequence('tool_moisture_return')
 water_tool_retrieve_sequence_id = qualify_sequence('tool_water_retrieve')
 water_tool_return_sequence_id = qualify_sequence('tool_water_return')
-# TODO qualify each comma separated sequence
-#water_sequence_ids = qualify_sequence('water_sequences')
+water_sequence_id = qualify_sequence('water_sequence')
+
 moisture_readings = []
 
 if len(input_errors):
