@@ -88,7 +88,7 @@ if len(input_errors):
 if device.get_current_position('x') > 10 or device.get_current_position('y') > 10 or device.get_current_position('z') < -10:
 	device.home('all')
 
-device.log('Get Pin: {}'.format(device.get_pin(PIN_SENSOR)))
+device.log('Get Pin: {}'.format(device.get_pin_value(PIN_SENSOR)))
 device.log('Read Pin: {}'.format(device.read_pin(PIN_SENSOR, 'Moisture Sensor', 1)))
 
 device.write_pin(PIN_LIGHTS, 1, 0)
