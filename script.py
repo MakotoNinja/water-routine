@@ -51,14 +51,15 @@ def take_readings():
 		device.move_absolute(coord.get_node(), 100, coord.get_offset_node())
 		coord.set_axis_position('z', SENSOR_Z_DEPTH)
 		device.move_absolute(coord.get_node(), 100, coord.get_offset_node())
-		#take reading
+		# take reading(s)
 		for i in range(NUM_SAMPLES):
 			moisture_readings.append(device.get_pin_value(PIN_SENSOR))
 			device.wait(500)
 
 		coord.set_axis_position('z', Z_TRANSLATE)
 		device.move_absolute(coord.get_node(), 100, coord.get_offset_node())
-	device.log('Readings: {}'.format(json.dumps(readings)))
+	#device.log('Readings Comkplete!', 'success')
+	device.log('Readings: {}'.format(json.dumps(moisture_readings)), 'success')
 	device.execute(moisture_tool_return_sequence_id)
 
 def response():
