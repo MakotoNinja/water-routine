@@ -24,7 +24,7 @@ class Coordinate:
 	def get_coordinate(self):
 		return self.coordinate['args']
 
-	def get(self):
+	def get_node(self):
 		return self.coordinate
 
 	def get_offset_pos(self, axis):
@@ -35,6 +35,9 @@ class Coordinate:
 
 	def get_offset(self):
 		return self.offset['args']
+
+	def get_offset_node(self):
+		return self.offset
 
 	def set_offset(self, x=None, y=None, z=None):
 		if x:

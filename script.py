@@ -40,7 +40,7 @@ def take_readings():
 	device.execute(moisture_tool_retrieve_sequence_id)
 	coord = Coordinate(device.get_current_position('x'), device.get_current_position('y'), Z_TRANSLATE)
 	device.log('Coord: {}'.format(coord.get_coordinate()))
-	device.move_absolute(coord.get(), 100, coord.get_offset())
+	device.move_absolute(coord.get_node(), 100, coord.get_offset_node())
 	for i in range(NUM_READ):
 		rand_plant_num = randint(0, len(plants) - 1)
 		while rand_plant_num in plants_chosen:
