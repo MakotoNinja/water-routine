@@ -35,8 +35,6 @@ def qualify_sequence(input_name):
 def take_readings():
 	readings = []
 	plants_chosen = []
-	if device.get_current_position('x') > 10 or device.get_current_position('y') > 10 or device.get_current_position('z') < -10:
-		device.home('all')
 	device.execute(moisture_tool_retrieve_sequence_id)
 	coord = Coordinate(device.get_current_position('x'), device.get_current_position('y'), Z_TRANSLATE)
 	device.log('Coord: {}'.format(coord.get_coordinate()))
@@ -49,8 +47,19 @@ def take_readings():
 		rand_plant = plants[rand_plant_num]
 		device.log(json.dumps(rand_plant))
 		# TODO random plant chosen, now offset coordinates and take moisture measurement
+		coord.set_coordinate(rand_plant['x'], rand_plant['y'], Z_TRANSLATE, OFFSET_X, OFFSET_Y)
+		device.move_absolute(coord.get_node(), 100, coord.get_offset_node())
+		coord.set_pos('z', SENSOR_Z_DEPTH)
+		device.move_absolute(coord.get_node(), 100, coord.get_offset_node())
+		#take reading
+		readings.append(device.read_pin(PIN_SENSOR, 1))
+		coord.set_pos('z', Z_TRANSLATE)
+		device.move_absolute(coord.get_node(), 100, coord.get_offset_node())
+	device.log('Readings: {}'.format(json_dumps(readings)))
+	device.execute(moisture_tool_return_sequence_id)
 
 PIN_LIGHTS = 7
+PIN_SENSOR = 59
 PIN_WATER = 8
 PKG = 'Water Routine'
 
@@ -58,6 +67,8 @@ input_errors = []
 
 SENSOR_Z_DEPTH = qualify_int('sensor_z_depth')
 Z_TRANSLATE = qualify_int('z_translate')
+OFFSET_X = qualify_int('offset_x')
+OFFSET_Y = qualify_int('offset_y')
 THRESHOLD = qualify_int('threshold')
 NUM_READ = qualify_int('num_read')
 
@@ -73,6 +84,8 @@ if len(input_errors):
 		device.log(err, 'warn')
 	device.log('Fatal errors occured, farmware exiting.', 'warn')
 	sys.exit()
+if device.get_current_position('x') > 10 or device.get_current_position('y') > 10 or device.get_current_position('z') < -10:
+	device.home('all')
 
 device.write_pin(PIN_LIGHTS, 1, 0)
 plants = app.get_plants()
