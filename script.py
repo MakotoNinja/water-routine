@@ -87,7 +87,10 @@ if len(input_errors):
 	sys.exit()
 if device.get_current_position('x') > 10 or device.get_current_position('y') > 10 or device.get_current_position('z') < -10:
 	device.home('all')
-device.log(device.read_pin(PIN_SENSOR, '', 1))
+
+device.log('Get Pin: {}'.format(device.get_pin(PIN_SENSOR)))
+device.log('Read Pin: {}'.format(device.read_pin(PIN_SENSOR, 'Moisture Sensor', 1)))
+
 device.write_pin(PIN_LIGHTS, 1, 0)
 plants = app.get_plants()
 
