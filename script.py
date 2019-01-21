@@ -39,7 +39,7 @@ def take_readings():
 	coord = Coordinate(device.get_current_position('x'), device.get_current_position('y'), Z_TRANSLATE)
 	device.log('Coord: {}'.format(coord.get_coordinate()))
 	device.move_absolute(coord.get_node(), 100, coord.get_offset_node())
-	for i in range(NUM_READ):
+	for i in range(NUM_SITES):
 		rand_plant_num = randint(0, len(plants) - 1)
 		while rand_plant_num in plants_chosen:
 			rand_plant_num = randint(0, len(plants) - 1)
@@ -53,11 +53,13 @@ def take_readings():
 		coord.set_axis_position('z', SENSOR_Z_DEPTH)
 		device.move_absolute(coord.get_node(), 100, coord.get_offset_node())
 		#take reading
-		readings.append(device.read_pin(PIN_SENSOR, 'Sensor', 1))
+		for i in range(NUM_SAMPLES):
+			readings.append(device.get_pin_value(PIN_SENSOR))
+			device.wait(500)
 		coord.set_axis_position('z', Z_TRANSLATE)
 		device.move_absolute(coord.get_node(), 100, coord.get_offset_node())
 	device.log('Readings complete!')
-	device.log('Readings: {}'.format(json.dumps(readings)))
+	device.log('Readings: {}'.format(json.dumps(readings)), 'success')
 	device.execute(moisture_tool_return_sequence_id)
 
 PIN_LIGHTS = 7
@@ -72,7 +74,8 @@ Z_TRANSLATE = qualify_int('z_translate')
 OFFSET_X = qualify_int('offset_x')
 OFFSET_Y = qualify_int('offset_y')
 THRESHOLD = qualify_int('threshold')
-NUM_READ = qualify_int('num_read')
+NUM_SITES = qualify_int('num_sites')
+NUM_SAMPLES = qualify_int('num_samples')
 
 moisture_tool_retrieve_sequence_id = qualify_sequence('tool_moisture_retrieve')
 moisture_tool_return_sequence_id = qualify_sequence('tool_moisture_return')
