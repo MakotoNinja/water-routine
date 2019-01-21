@@ -7,10 +7,10 @@ class Coordinate:
 		self.coordinate_node = device.assemble_coordinate(x, y, z)
 		self.offset_node = device.assemble_coordinate(ox, oy, oz)
 
-	def set_pos(self, axis, pos):
+	def set_axis_position(self, axis, pos):
 		self.coordinate_node['args'][axis] = pos
 
-	def get_pos(self, axis):
+	def get_axis_position(self, axis):
 		return self.coordinate_node['args'][axis]
 
 	def set_coordinate(self, x=None, y=None, z=None):
@@ -27,10 +27,10 @@ class Coordinate:
 	def get_node(self):
 		return self.coordinate_node
 
-	def get_offset_pos(self, axis):
+	def get_offset_axis_position(self, axis):
 		return self.offset_node['args'][axis]
 
-	def set_offset_pos(self, axis, pos):
+	def set_offset_axis_position(self, axis, pos):
 		self.offset_node['args'][axis] = pos
 
 	def get_offset(self):
@@ -49,7 +49,7 @@ class Coordinate:
 
 	def move_abs(self, speed=100):
 		device.move_absolute(self.coordinate_node, speed, self.offset_node)
-	
+
 	def print_me(self):
 		print(self.get_coordinate())
 

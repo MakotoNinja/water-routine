@@ -47,9 +47,10 @@ def take_readings():
 		rand_plant = plants[rand_plant_num]
 		device.log(json.dumps(rand_plant))
 		# TODO random plant chosen, now offset coordinates and take moisture measurement
-		coord.set_coordinate(rand_plant['x'], rand_plant['y'], Z_TRANSLATE, OFFSET_X, OFFSET_Y)
+		coord.set_coordinate(rand_plant['x'], rand_plant['y'], Z_TRANSLATE)
+		coord.set_offset(OFFSET_X, OFFSET_Y)
 		device.move_absolute(coord.get_node(), 100, coord.get_offset_node())
-		coord.set_pos('z', SENSOR_Z_DEPTH)
+		coord.set_axis_position('z', SENSOR_Z_DEPTH)
 		device.move_absolute(coord.get_node(), 100, coord.get_offset_node())
 		#take reading
 		readings.append(device.read_pin(PIN_SENSOR, 1))
