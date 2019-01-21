@@ -52,8 +52,8 @@ def take_readings():
 		# take reading(s)
 		for i in range(NUM_SAMPLES):
 			reading = device.get_pin_value(PIN_SENSOR)
-			device.log('Getting: {}'.format(reading))
-			device.read_pin(PIN_SENSOR, 'Sensor', 1)
+			device.log('get_pin_value: {}'.format(reading))
+			#device.read_pin(PIN_SENSOR, 'Sensor', 1)
 			moisture_readings.append(reading)
 			device.wait(500)
 
@@ -68,6 +68,7 @@ def response():
 	for i in moisture_readings:
 		average += i
 	average /= len(moisture_readings)
+	device.log('Moisture Average: {}'.format(average), 'info')
 	if average < THRESHOLD:
 		device.execute(water_tool_retrieve_sequence_id)
 		device.execute(water_sequence_id)
