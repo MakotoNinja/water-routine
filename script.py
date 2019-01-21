@@ -33,7 +33,6 @@ def qualify_sequence(input_name):
 	return None
 
 def take_readings():
-	readings = []
 	plants_chosen = []
 	device.execute(moisture_tool_retrieve_sequence_id)
 	coord = Coordinate(device.get_current_position('x'), device.get_current_position('y'), Z_TRANSLATE)
@@ -54,13 +53,23 @@ def take_readings():
 		device.move_absolute(coord.get_node(), 100, coord.get_offset_node())
 		#take reading
 		for i in range(NUM_SAMPLES):
-			readings.append(device.get_pin_value(PIN_SENSOR))
+			moisture_readings.append(device.get_pin_value(PIN_SENSOR))
 			device.wait(500)
+
 		coord.set_axis_position('z', Z_TRANSLATE)
 		device.move_absolute(coord.get_node(), 100, coord.get_offset_node())
-	device.log('Readings complete!')
 	device.log('Readings: {}'.format(json.dumps(readings)), 'success')
 	device.execute(moisture_tool_return_sequence_id)
+
+def response():
+	average = 0
+	for i in moisture_readings:
+		average += i
+	average /= len(moisture_readings)
+	if average < THRESHOLD:
+		device.execute(water_tool_retrieve_sequence_id)
+		# TODO execute water sequences
+		device.execute(water_tool_return_sequence_id)
 
 PIN_LIGHTS = 7
 PIN_SENSOR = 59
@@ -83,6 +92,7 @@ water_tool_retrieve_sequence_id = qualify_sequence('tool_water_retrieve')
 water_tool_return_sequence_id = qualify_sequence('tool_water_return')
 # TODO qualify each comma separated sequence
 #water_sequence_ids = qualify_sequence('water_sequences')
+moisture_readings = []
 
 if len(input_errors):
 	for err in input_errors:
@@ -98,6 +108,7 @@ device.write_pin(PIN_LIGHTS, 1, 0)
 plants = app.get_plants()
 
 take_readings()
+response();
 
 device.home('all')
 device.write_pin(PIN_LIGHTS, 0, 0)
