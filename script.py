@@ -51,9 +51,9 @@ def take_readings():
 		coord.move_abs()
 		# take reading(s)
 		for i in range(NUM_SAMPLES):
+			device.read_pin(PIN_SENSOR, 'Sensor', 1)
 			reading = device.get_pin_value(PIN_SENSOR)
 			device.log('get_pin_value: {}'.format(reading))
-			#device.read_pin(PIN_SENSOR, 'Sensor', 1)
 			moisture_readings.append(reading)
 			device.wait(500)
 
