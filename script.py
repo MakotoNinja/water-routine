@@ -53,7 +53,7 @@ def take_readings():
 		coord.set_axis_position('z', SENSOR_Z_DEPTH)
 		device.move_absolute(coord.get_node(), 100, coord.get_offset_node())
 		#take reading
-		readings.append(device.read_pin(PIN_SENSOR, 'Moisture Sensor', 1))
+		readings.append(device.read_pin(PIN_SENSOR, 'MoistureSensor', 1))
 		coord.set_axis_position('z', Z_TRANSLATE)
 		device.move_absolute(coord.get_node(), 100, coord.get_offset_node())
 	device.log('Readings: {}'.format(json_dumps(readings)))
@@ -87,7 +87,7 @@ if len(input_errors):
 	sys.exit()
 if device.get_current_position('x') > 10 or device.get_current_position('y') > 10 or device.get_current_position('z') < -10:
 	device.home('all')
-device.log(device.read_pin(PIN_SENSOR, 'Moisture Sensor', 1))
+device.log(device.read_pin(PIN_SENSOR, 'MoistureSensor', 1))
 device.write_pin(PIN_LIGHTS, 1, 0)
 plants = app.get_plants()
 
