@@ -58,7 +58,7 @@ PIN_WATER = 8
 PKG = 'Water Routine'
 
 input_errors = []
-
+device.log('INIT')
 PLANT_TYPES = Qualify.get_csv(PKG, 'plant_types')
 SENSOR_Z_DEPTH = Qualify.interger(PKG, 'sensor_z_depth')
 Z_TRANSLATE = Qualify.interger(PKG,'z_translate')
@@ -67,13 +67,13 @@ OFFSET_Y = Qualify.interger(PKG,'offset_y')
 THRESHOLD = Qualify.interger(PKG,'threshold')
 NUM_SITES = Qualify.interger(PKG,'num_sites')
 NUM_SAMPLES = Qualify.interger(PKG,'num_samples')
-
+device.log('Integers Qualified')
 moisture_tool_retrieve_sequence_id = Qualify.Sequence(PKG, 'tool_moisture_retrieve')
 moisture_tool_return_sequence_id = Qualify.Sequence(PKG, 'tool_moisture_return')
 water_tool_retrieve_sequence_id = Qualify.Sequence(PKG, 'tool_water_retrieve')
 water_tool_return_sequence_id = Qualify.Sequence(PKG, 'tool_water_return')
 water_sequence_id = Qualify.Sequence(PKG, 'water_sequence')
-
+device.log('Sequences Qualified')
 moisture_readings = []
 
 if len(input_errors):
