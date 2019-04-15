@@ -60,6 +60,7 @@ PKG = 'Water Routine'
 input_errors = []
 device.log('INIT')
 PLANT_TYPES = Qualify.get_csv(PKG, 'plant_types')
+device.log('CSVs Qualified')
 SENSOR_Z_DEPTH = Qualify.interger(PKG, 'sensor_z_depth')
 Z_TRANSLATE = Qualify.interger(PKG,'z_translate')
 OFFSET_X = Qualify.interger(PKG,'offset_x')
