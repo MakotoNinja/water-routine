@@ -13,11 +13,14 @@ def take_readings():
 	plants_chosen = []
 	device.execute(moisture_tool_retrieve_sequence_id)
 	#coord = Coordinate(device.get_current_position('x'), device.get_current_position('y'), Z_TRANSLATE)
+	device.log('Creating Coordinate')
 	bot = Coordinate(device.get_current_position('x'), device.get_current_position('y'))
+	device.log('BOT: {}'.format(bot))
 	for i in range(NUM_SITES):
 		rand_plant_num = randint(0, len(target_plants) - 1)
 		while rand_plant_num in plants_chosen:
 			rand_plant_num = randint(0, len(target_plants) - 1)
+		device.log('Rand: {}'.format(rand_plant_num))
 		plants_chosen.append(rand_plant_num)
 		rand_plant = plants[rand_plant_num]
 		device.log(json.dumps(rand_plant))
