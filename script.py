@@ -22,7 +22,7 @@ def take_readings():
 		while rand_plant_num in plants_chosen:
 			rand_plant_num = randint(0, len(target_plants) - 1)
 		plants_chosen.append(rand_plant_num)
-		rand_plant = all_plants[rand_plant_num]
+		rand_plant = target_plants[rand_plant_num]
 		device.log('Random Plant: {}'.format(json.dumps(rand_plant)))
 
 		bot.set_axis_position('z', Z_TRANSLATE)					# sets the z axis to translate height, auto-move enabled
@@ -40,6 +40,7 @@ def take_readings():
 		average /= NUM_SAMPLES
 		moisture_readings.append(average)
 		device.log('Site Reading #{}: {}'.format(i, average), 'success')
+	bot.set_axis_position('z', Z_TRANSLATE)
 	device.log('Readings: {}'.format(json.dumps(moisture_readings)), 'success')
 	device.execute(moisture_tool_return_sequence_id)
 
