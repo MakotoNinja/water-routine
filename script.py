@@ -15,6 +15,7 @@ def take_readings():
 	#coord = Coordinate(device.get_current_position('x'), device.get_current_position('y'), Z_TRANSLATE)
 	#device.log('Creating Coordinate')
 	bot = Coordinate(device.get_current_position('x'), device.get_current_position('y'))
+	bot.set_offset(OFFSET_X, OFFSET_Y, move_abs=False) # sets the offset, auto-move disabled
 	#device.log('BOT: {}'.format(bot))
 	for i in range(NUM_SITES):
 		rand_plant_num = randint(0, len(target_plants) - 1)
@@ -24,10 +25,9 @@ def take_readings():
 		rand_plant = all_plants[rand_plant_num]
 		device.log('Random Plant: {}'.format(json.dumps(rand_plant)))
 
-		bot.set_axis_position('z', Z_TRANSLATE)									# sets the z axis to translate height, auto-move enabled
-		bot.set_coordinate(rand_plant['x'], rand_plant['y'], move_abs=False)	# set the plant coordinate, auto-move disabled
-		bot.set_offset(OFFSET_X, OFFSET_Y)										# set the offset, auto-move enabled
-		bot.set_axis_position('z', SENSOR_Z_DEPTH)								# plunge sensor into soil, auto-move enabled
+		bot.set_axis_position('z', Z_TRANSLATE)					# sets the z axis to translate height, auto-move enabled
+		bot.set_coordinate(rand_plant['x'], rand_plant['y'])	# set the plant coordinate, auto-move enabled
+		bot.set_axis_position('z', SENSOR_Z_DEPTH)				# plunge sensor into soil, auto-move enabled
 		# take reading(s)
 		site_readings = []
 		for j in range(NUM_SAMPLES):
