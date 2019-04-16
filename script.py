@@ -20,12 +20,11 @@ def take_readings():
 		rand_plant_num = randint(0, len(target_plants) - 1)
 		while rand_plant_num in plants_chosen:
 			rand_plant_num = randint(0, len(target_plants) - 1)
-		#device.log('Rand: {}'.format(rand_plant_num))
 		plants_chosen.append(rand_plant_num)
 		rand_plant = all_plants[rand_plant_num]
-		device.log(json.dumps(rand_plant))
-		bot.set_coordinate(z=Z_TRANSLATE)
-		#coord.set_coordinate(rand_plant['x'], rand_plant['y'], Z_TRANSLATE)
+		device.log('Random Plant: {}'.format(json.dumps(rand_plant)))
+
+		bot.set_axis_position('z', Z_TRANSLATE)									# sets the z axis to translate height, auto-move enabled
 		bot.set_coordinate(rand_plant['x'], rand_plant['y'], move_abs=False)	# set the plant coordinate, auto-move disabled
 		bot.set_offset(OFFSET_X, OFFSET_Y)										# set the offset, auto-move enabled
 		bot.set_axis_position('z', SENSOR_Z_DEPTH)								# plunge sensor into soil, auto-move enabled
