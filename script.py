@@ -60,7 +60,7 @@ PKG = 'Water Routine'
 input_errors = []
 device.log('INIT')
 PLANT_TYPES = Qualify.get_csv(PKG, 'plant_types')
-device.log('CSVs Qualified')
+#device.log('CSVs Qualified')
 SENSOR_Z_DEPTH = Qualify.integer(PKG, 'sensor_z_depth')
 Z_TRANSLATE = Qualify.integer(PKG,'z_translate')
 OFFSET_X = Qualify.integer(PKG,'offset_x')
@@ -68,32 +68,32 @@ OFFSET_Y = Qualify.integer(PKG,'offset_y')
 THRESHOLD = Qualify.integer(PKG,'threshold')
 NUM_SITES = Qualify.integer(PKG,'num_sites')
 NUM_SAMPLES = Qualify.integer(PKG,'num_samples')
-device.log('Integers Qualified')
+#device.log('Integers Qualified')
 moisture_tool_retrieve_sequence_id = Qualify.sequence(PKG, 'tool_moisture_retrieve')
 moisture_tool_return_sequence_id = Qualify.sequence(PKG, 'tool_moisture_return')
 water_tool_retrieve_sequence_id = Qualify.sequence(PKG, 'tool_water_retrieve')
 water_tool_return_sequence_id = Qualify.sequence(PKG, 'tool_water_return')
 water_sequence_id = Qualify.sequence(PKG, 'water_sequence')
-device.log('Sequences Qualified')
+#device.log('Sequences Qualified')
 moisture_readings = []
 
 if len(input_errors):
 	for err in input_errors:
 		device.log(err, 'warn')
-	device.log('Fatal errors occured, farmware exiting.', 'warn')
+	device.log('Fatal config errors occured, farmware exiting.', 'warn')
 	sys.exit()
+else:
+	device.log('No config errors were detected.', 'success')
 
 if device.get_current_position('x') > 10 or device.get_current_position('y') > 10 or device.get_current_position('z') < -10:
 	device.home('all')
-
-device.log('Read Pin: {}'.format(device.read_pin(PIN_SENSOR, 'Sensor', 1)))
 
 device.write_pin(PIN_LIGHTS, 1, 0)
 
 target_plants = []
 all_plants = app.get_plants()
 for plant in all_plants:
-	if plant['name'].lower in PLANT_TYPES:
+	if plant['name'].lower() in PLANT_TYPES:
 		target_plants.append(plant)
 
 take_readings()
