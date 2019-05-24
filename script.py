@@ -55,12 +55,12 @@ def response():
 		device.execute(water_sequence_id)
 		device.execute(water_tool_return_sequence_id)
 
-device.log('BEGIN FARMWARE: {}'.format(PKG))
-
 PIN_LIGHTS = 7
 PIN_SENSOR = 59
 PIN_WATER = 8
 PKG = 'Water Routine'
+
+device.log('BEGIN FARMWARE: {}'.format(PKG))
 
 input_errors = []
 device.log('INIT')
