@@ -55,6 +55,8 @@ def response():
 		device.execute(water_sequence_id)
 		device.execute(water_tool_return_sequence_id)
 
+device.log('BEGIN FARMWARE: {}'.format(PKG)
+
 PIN_LIGHTS = 7
 PIN_SENSOR = 59
 PIN_WATER = 8
@@ -63,7 +65,7 @@ PKG = 'Water Routine'
 input_errors = []
 device.log('INIT')
 PLANT_TYPES = Qualify.get_csv(PKG, 'plant_types')
-#device.log('CSVs Qualified')
+device.log('PLANT TYPES: {}'.format(PLANT_TYPES))
 SENSOR_Z_DEPTH = Qualify.integer(PKG, 'sensor_z_depth')
 Z_TRANSLATE = Qualify.integer(PKG,'z_translate')
 OFFSET_X = Qualify.integer(PKG,'offset_x')
@@ -105,3 +107,4 @@ response();
 
 device.home('all')
 device.write_pin(PIN_LIGHTS, 0, 0)
+device.log('END FARMWARE: {}'.format(PKG)
