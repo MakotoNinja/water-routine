@@ -55,7 +55,7 @@ def response():
 		device.execute(water_sequence_id)
 		device.execute(water_tool_return_sequence_id)
 
-device.log('BEGIN FARMWARE: {}'.format(PKG)
+device.log('BEGIN FARMWARE: {}'.format(PKG))
 
 PIN_LIGHTS = 7
 PIN_SENSOR = 59
@@ -107,4 +107,4 @@ response();
 
 device.home('all')
 device.write_pin(PIN_LIGHTS, 0, 0)
-device.log('END FARMWARE: {}'.format(PKG)
+device.log('END FARMWARE: {}'.format(PKG))
