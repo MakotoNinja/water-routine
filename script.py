@@ -63,7 +63,6 @@ PKG = 'Water Routine'
 device.log('BEGIN FARMWARE: {}'.format(PKG))
 
 input_errors = []
-device.log('INIT')
 PLANT_TYPES = Qualify.get_csv(PKG, 'plant_types')
 device.log('PLANT TYPES: {}'.format(PLANT_TYPES))
 SENSOR_Z_DEPTH = Qualify.integer(PKG, 'sensor_z_depth')
@@ -97,7 +96,7 @@ device.write_pin(PIN_LIGHTS, 1, 0)
 
 target_plants = []
 all_plants = app.get_plants()
-device.log('All Plants: {}'.format(json.dumps(all_plants)))
+device.log('(0) All Plants: {}'.format(json.dumps(all_plants)))
 for plant in all_plants:
 	device.log('plant[\'NAME\']: {}'.format(plant['NAME']))
 	plant_name = ''.join(plant['NAME'].split()).lower()
