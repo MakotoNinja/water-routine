@@ -99,6 +99,7 @@ target_plants = []
 all_plants = app.get_plants()
 device.log('All Plants: {}'.format(json.dumps(all_plants)))
 for plant in all_plants:
+	device.log('plant[\'NAME\']: {}'.format(plant['NAME']))
 	plant_name = ''.join(plant['NAME'].split()).lower()
 	device.log('plant name: {}'.format(plant_name))
 	if plant_name in PLANT_TYPES:
