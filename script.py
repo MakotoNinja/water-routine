@@ -95,10 +95,11 @@ device.write_pin(PIN_LIGHTS, 1, 0)
 
 target_plants = []
 all_plants = app.get_plants()
+device.log('All Plants: {}'.format(json.dumps(all_plants)))
 for plant in all_plants:
 	if plant['name'].lower() in PLANT_TYPES:
 		target_plants.append(plant)
-
+device.log('Target Plants: {}'.format(json.dumps(target_plants)))
 take_readings()
 response();
 
