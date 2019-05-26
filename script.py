@@ -99,7 +99,7 @@ all_plants = app.get_plants()
 device.log('(2) All Plants: {}'.format(json.dumps(all_plants)))
 for plant in all_plants:
 	plant_name = ''.join(plant['name'].split()).lower()
-	device.log('plant name: {}'.format(plant_name))
+	device.log('PLANT NAME: {}'.format(plant_name))
 	if plant_name in PLANT_TYPES:
 		target_plants.append(plant)
 device.log('Target Plants: {}'.format(json.dumps(target_plants)))

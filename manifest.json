@@ -3,7 +3,7 @@
 	"language": "python",
 	"author": "MakotoNinja",
 	"description": "A moisture sensing and watering response routine for Farmbot.",
-	"version": "1.0.3",
+	"version": "1.0.1",
 	"min_os_version_major": 6,
 	"url": "https://raw.githubusercontent.com/MakotoNinja/water-routine/master/manifest.json",
 	"zip": "https://github.com/MakotoNinja/water-routine/archive/master.zip",
