@@ -52,7 +52,7 @@ def response():
 		device.execute(water_sequence_id)
 		device.execute(water_tool_return_sequence_id)
 
-DEBUG = True
+debug.debug_flag = True
 PIN_LIGHTS = 7
 PIN_SENSOR = 59
 PIN_WATER = 8

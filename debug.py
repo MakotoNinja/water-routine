@@ -1,3 +1,3 @@
 def log(msg):
-	if DEBUG:
+	if debug_flag:
 		device.log(msg)
