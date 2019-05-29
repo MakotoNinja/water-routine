@@ -52,15 +52,15 @@ def response():
 		device.execute(water_sequence_id)
 		device.execute(water_tool_return_sequence_id)
 
-
+Debug.debug_flag = True
 PIN_LIGHTS = 7
 PIN_SENSOR = 59
 PIN_WATER = 8
 PKG = 'Water Routine'
 
-device.log('INIT: {}'.format(PGK))
+device.log('INIT: {}'.format(PKG))
 Debug.log('BEGIN FARMWARE: {}'.format(PKG))
-Debug.debug_flag = True
+
 input_errors = []
 PLANT_TYPES = Qualify.get_csv(PKG, 'plant_types')
 Debug.log('PLANT TYPES: {}'.format(PLANT_TYPES))
