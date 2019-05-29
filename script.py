@@ -58,6 +58,7 @@ PIN_SENSOR = 59
 PIN_WATER = 8
 PKG = 'Water Routine'
 
+device.log('INIT: {}'.format(PGK))
 Debug.log('BEGIN FARMWARE: {}'.format(PKG))
 
 input_errors = []
