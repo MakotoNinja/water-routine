@@ -4,7 +4,7 @@
  ' Moisture sensing and watering routine for Farmbot
 '''
 
-import os, sys, json, Qualify, debug
+import os, sys, json, Qualify, Debug
 from random import randint
 from farmware_tools import device, app, get_config_value
 from Coordinate import Coordinate
@@ -52,17 +52,17 @@ def response():
 		device.execute(water_sequence_id)
 		device.execute(water_tool_return_sequence_id)
 
-debug.debug_flag = True
+Debug.debug_flag = True
 PIN_LIGHTS = 7
 PIN_SENSOR = 59
 PIN_WATER = 8
 PKG = 'Water Routine'
 
-debug.log('BEGIN FARMWARE: {}'.format(PKG))
+Debug.log('BEGIN FARMWARE: {}'.format(PKG))
 
 input_errors = []
 PLANT_TYPES = Qualify.get_csv(PKG, 'plant_types')
-debug.log('PLANT TYPES: {}'.format(PLANT_TYPES))
+Debug.log('PLANT TYPES: {}'.format(PLANT_TYPES))
 SENSOR_Z_DEPTH = Qualify.integer(PKG, 'sensor_z_depth')
 Z_TRANSLATE = Qualify.integer(PKG,'z_translate')
 OFFSET_X = Qualify.integer(PKG,'offset_x')
@@ -97,7 +97,7 @@ all_plants = app.get_plants()
 
 for plant in all_plants:
 	plant_name = ''.join(plant['name'].split()).lower()
-	debug.log('plant[\'name\']: {}'.format(plant_name))
+	Debug.log('plant[\'name\']: {}'.format(plant_name))
 	if plant_name in PLANT_TYPES:
 		target_plants.append(plant)
 device.log('Target Plants: {}'.format(json.dumps(target_plants)))
